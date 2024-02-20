@@ -1,125 +1,116 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-   <link rel="icon" href="gojo.jpg" type="image">
+<link rel="icon" href="gojo.jpg" type="image">
+
+<title>Algo</title>
 <style>
-body {
-      background-color: #000033; /* Dark shade background */
-      
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      color:white;
-    }
-
-    .desktop-icon {
-      width: 300px; /* Adjust icon size as needed */
-      height: 300px;
-      margin:10px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .icon {
-      color: white; /* Adjust icon color as needed */
-      font-size: 80px;
-        align-items: center;
-      justify-content: center;
-    }
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+  }
+  .form-container {
+    width: 45%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .form-container label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  .form-container input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+  .form-container input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+  .form-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 </style>
 </head>
 <body>
-<nav class="navbar">
-    <marquee direction="left"> 
-     🏆🏆 Welcome to The_weakend Algorithm 🤖🤖🖥️🖥️🏆🏆
-        </marquee>
-    </nav>
-    
 
-    <div class="form-container" id="column1-form">
-        <!-- Form content for Column 1 -->
-        <h2>Estimate goals for a selection</h2>
-        <form id="match-predictor">
-            <label for="side">Select Side:</label>
-            <select id="side" name="side">
-                <option value="home">Home</option>
-                <option value="away">Away</option>
-            </select>
-            
-            <label for="winner-h2h">H2H Home Goals:</label>
-            <input type="number" id="HG" name="numericInput" step="1" pattern="[0-9]*" required>
-            <label for="winner-last-5" placeholder="h2h prev 5 games">H2H away goals:</label>
-            <input type="number" id="HA" name="numericInput" step="1" placeholder="number of h2h goals prev 5 games"pattern="[0-9]*" required>
-            <label for="winner-last-5">TGS prev 5:</label>
-            <input type="number" id="numericInput"placeholder="Total goals scored in prev 5 matches"  name="numericInput" step="1" pattern="[0-9]*" required>
-            <label for="Team-form">Team Form :</label>
-            <input type="number" id="numericInput" name="numericInput" step="1" pattern="[0-9]*" required>
-            
-            
-            <button type="button" onclick='displayClubName()'  id="submit-button">Get me results</button>
-            
-            
-            
-             <div class="desktop-icon">
-    <div class="icon">🖥️</div> <!-- Desktop computer icon, you can replace it with your preferred icon -->
+<div class="container">
+  <div class="form-container form-container-1">
+    <form id="form1" action="/submit_form" method="post">
+      <h3>Home</h3>
+      <label>Club Name:</label>
+      <input type="text" name="club">
+      <label for="home1">Home:</label>
+      <input type="number" id="home1" name="home1">
+      <label for="away1">Away:</label>
+      <input type="number" id="away1" name="away1">
+      <button type="button" onclick="calculateGSP('1')">Submit</button>
+      <b>GSP:</b><b id="gsp1"></b>
+      
+      <label>Sub:</label>
+      <input type="number" id="sub1" name="sub">
+      <button type="button" onclick="calculateAR('1')">AR</button>
+      <b id="ar1"></b>
+    </form>
   </div>
-<div id='show'></div>
+  <div class="form-container form-container-2">
+    <form id="form2" action="/submit_form" method="post">
+      <h3>Away</h3>
+      <label>Club Name:</label>
+      <input type="text" name="club">
+      <label for="home2">Away:</label>
+      <input type="number" id="home2" name="home2">
+      <label for="away2">Home:</label>
+      <input type="number" id="away2" name="away2">
+      <button type="button" onclick="calculateGSP('2')">Submit</button>
+      <label>GSP:</label><b id="gsp2"></b>
+      
+      <label>Sub:</label>
+      <input type="number" id="sub2" name="sub">
+      <button type="button" onclick="calculateAR('2')">AR</button>
+      <b id="ar2"></b>
+    </form>
+  </div>
+</div>
 
-
-      <label for="winner-last-5">Club name:</label>
-            <input type="text" id="club-name" name="club-name">
-                  
-  <div class="analysis">
-        <h2>Results</h2>
-        
-        <label>GSP <span class="info-icon" onclick="showDialog()">ℹ️:</span></label>
+<script>
+  function calculateGSP(containerNumber) {
+    const homeInput = parseFloat(document.getElementById('home' + containerNumber).value) || 0;
+    const awayInput = parseFloat(document.getElementById('away' + containerNumber).value) || 0;
     
-    <div class="dialog-box" id="info-dialog">
-        <!-- Content for the dialogue box -->
-        <p>displays the goal scoring possibility of the selected side in the game expressed in percentage  .</p>
-    </div> <i id="gsp"></i><br />
-        <label for="checkbox1">Over 0.5</label>
-    <input type="checkbox" id="checkbox1" name="checkbox1" value="value1">
-    <br>
+    const sum = homeInput + awayInput;
+    const homePercentage = (homeInput / sum) * 100;
 
-    <label for="checkbox2">Over 1.5</label>
-    <input type="checkbox" id="checkbox2" name="checkbox2" value="value2">
-    <br>
-
-    <label for="checkbox3">Over 2.5</label>
-    <input type="checkbox" id="checkbox3" name="checkbox3" value="value3">
-    <br>
-    </div>
-            
-            
-        </form>
-    </div>
-
+    document.getElementById('gsp' + containerNumber).textContent = homePercentage.toFixed(2) + "%";
+  }
+  
+  function calculateAR(containerNumber) {
+    const gspValue = parseFloat(document.getElementById('gsp' + containerNumber).textContent) || 0;
+    const subValue = parseFloat(document.getElementById('sub' + containerNumber).value) || 0;
     
+    const result = ((gspValue + subValue) / 2).toFixed(2);
 
-    <script src="script.js">
-          var inactivityTimeout;
+    document.getElementById('ar' + containerNumber).textContent = result;
+  }
+</script>
 
-        function resetInactivityTimer() {
-            clearTimeout(inactivityTimeout);
-            inactivityTimeout = setTimeout(redirectHome, 120000); // 2 minutes in milliseconds
-        }
-
-        function redirectHome() {
-            window.location.href = 'index.html'; // Replace 'home.html' with your actual home page
-        }
-
-        // Reset the inactivity timer on user activity (e.g., mousemove or keydown)
-        document.addEventListener('mousemove', resetInactivityTimer);
-        document.addEventListener('keydown', resetInactivityTimer);
-
-        // Initial setup of the inactivity timer
-        resetInactivityTimer();
-    </script>
 </body>
 </html>

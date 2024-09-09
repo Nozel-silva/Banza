@@ -210,6 +210,201 @@
   </div>
 </div>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="gojo.jpg" type="image">
+
+<title>Algo</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+  }
+  .form-container {
+    width: 45%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .form-container label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  .form-container input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+  .form-container input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+  .form-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="form-container form-container-1">
+    <form id="form1" action="/submit_form" method="post">
+      <h3>Home</h3>
+      <label>Club Name:</label>
+      <input type="text" name="club">
+      <label for="home1">Home(prev5):</label>
+      <input type="number" id="home1" name="home1" placeholder="Total home goals prev 5 games">
+      <label for="away1">Away:</label>
+      <input type="number" id="away1" name="away1" placeholder="Total Away goals prev 5 games">
+      <label>Total Goals prev 5</label>
+      <input type="number" id="home2" name="home2" placeholder="Total goals prev 5 games">
+      <button type="button" onclick="calculateGSP('1')">Submit</button>
+      <b>gsp:</b><b id="gsp1"></b>
+      
+      <label>Home form:</label>
+      <input type="number" id="sub1" name="sub">
+      <button type="button" onclick="calculateAR('1')">Total Gsp</button>
+      <b id="ar1"></b>
+    </form>
+  </div>
+  <div class="form-container form-container-2">
+    <form id="form2" action="/submit_form" method="post">
+      <h3>Away</h3>
+      <label>Club Name:</label>
+      <input type="text" name="club">
+      <label for="home2">Away:</label>
+      <input type="number" id="home2" name="home2" placeholder="Total Away goals prev 5 games">
+      <label for="away2">Home:</label>
+      <input type="number" id="away2" name="away2" placeholder="Total home goals prev 5 games">
+      <label>Total Goals prev 5</label>
+      <input type="number" id="home2" name="home2" placeholder="Total goals prev 5 games">
+      <button type="button" onclick="calculateGSP('2')">Submit</button>
+      <b>gsp:</b><b id="gsp2"></b>
+      
+      <label>Away Form:</label>
+      <input type="number" id="sub2" name="sub">
+      <button type="button" onclick="calculateAR('2')">Total Gsp</button>
+      <b id="ar2"></b>
+    </form>
+  </div>
+</div>
+
+<script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="gojo.jpg" type="image">
+
+<title>Algo</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+  }
+  .form-container {
+    width: 45%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .form-container label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  .form-container input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+  .form-container input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+  .form-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="form-container form-container-1">
+    <form id="form1" action="/submit_form" method="post">
+      <h3>Home</h3>
+      <label>Club Name:</label>
+      <input type="text" name="club">
+      <label for="home1">Home(prev5):</label>
+      <input type="number" id="home1" name="home1" placeholder="Total home goals prev 5 games">
+      <label for="away1">Away:</label>
+      <input type="number" id="away1" name="away1" placeholder="Total Away goals prev 5 games">
+      <label>Total Goals prev 5</label>
+      <input type="number" id="home2" name="home2" placeholder="Total goals prev 5 games">
+      <button type="button" onclick="calculateGSP('1')">Submit</button>
+      <b>gsp:</b><b id="gsp1"></b>
+      
+      <label>Home form:</label>
+      <input type="number" id="sub1" name="sub">
+      <button type="button" onclick="calculateAR('1')">Total Gsp</button>
+      <b id="ar1"></b>
+    </form>
+  </div>
+  <div class="form-container form-container-2">
+    <form id="form2" action="/submit_form" method="post">
+      <h3>Away</h3>
+      <label>Club Name:</label>
+      <input type="text" name="club">
+      <label for="home2">Away:</label>
+      <input type="number" id="home2" name="home2" placeholder="Total Away goals prev 5 games">
+      <label for="away2">Home:</label>
+      <input type="number" id="away2" name="away2" placeholder="Total home goals prev 5 games">
+      <label>Total Goals prev 5</label>
+      <input type="number" id="home2" name="home2" placeholder="Total goals prev 5 games">
+      <button type="button" onclick="calculateGSP('2')">Submit</button>
+      <b>gsp:</b><b id="gsp2"></b>
+      
+      <label>Away Form:</label>
+      <input type="number" id="sub2" name="sub">
+      <button type="button" onclick="calculateAR('2')">Total Gsp</button>
+      <b id="ar2"></b>
+    </form>
+  </div>
+</div>
+
 <script>
   function calculateGSP(containerNumber) {
     const homeInput = parseFloat(document.getElementById('home' + containerNumber).value) || 0;
@@ -233,3 +428,5 @@
 
 </body>
 </html>
+
+
